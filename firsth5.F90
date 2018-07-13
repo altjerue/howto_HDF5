@@ -32,11 +32,11 @@ program firsth5
    !
    !    Saving an integer scalar
    !
-   call h5screate_simple_f(1, dims0, dspace_id, error)                           ! <-- Create data set space
+   call h5screate_simple_f(1, dims0, dspace_id, error)                              ! <-- Create data set space
    call h5dcreate_f(file_id, 'size', H5T_NATIVE_INTEGER, dspace_id, dset_id, error) ! <-- Create data set
-   call h5dwrite_f(dset_id, H5T_NATIVE_INTEGER, N, dims0, error)                   ! <-- Write array
-   call h5dclose_f(dset_id, error)                                               ! <-- Close data set
-   call h5sclose_f(dspace_id, error)                                             ! <-- Close space
+   call h5dwrite_f(dset_id, H5T_NATIVE_INTEGER, N, dims0, error)                    ! <-- Write array
+   call h5dclose_f(dset_id, error)                                                  ! <-- Close data set
+   call h5sclose_f(dspace_id, error)                                                ! <-- Close space
    
    !
    !    Saving a 1D real array
@@ -57,10 +57,13 @@ program firsth5
    call h5sclose_f(dspace_id, error)
 
    !
+   !    Close HDF5 file
    !
-   !
-
    call h5fclose_f(file_id, error) ! <--- Closing HDF5 file
-   call h5close_f(error) ! <--- Closing HDF5
+   call h5close_f(error)           ! <--- Closing HDF5
+
+   !
+   ! TODO Saving 2D arrays for different times
+   ! TODO Include attributes vs wide labels
 
 end program firsth5
