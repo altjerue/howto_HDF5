@@ -3,9 +3,10 @@ program firsth5
    implicit none
    
    integer(HID_T) :: file_id, dset_id, dspace_id
-   integer(HSIZE_T) :: dims0(1), dims1(1), dims2(2)
+   integer(HSIZE_T), dimension(1) :: dims0, dims1
+   integer(HSIZE_T), dimension(2) :: dims2
    integer :: error,i,j,N
-   real(kind=8), dimension(50) :: x
+   real(kind=8), dimension(50) :: x,x2
    real(kind=8), dimension(50, 50) :: y
    character(len=256) :: filename, dsetname
    
@@ -20,9 +21,9 @@ program firsth5
       x(i) = dble(i)
       do j=1,50
          y(i, j) = dble(j) * x(i)
+         ! print*,x(i), y(i, j)
       end do
    end do
-
 
 
    call h5open_f(error)   ! <-- Open HDF5 instance
@@ -37,22 +38,23 @@ program firsth5
    call h5dwrite_f(dset_id, H5T_NATIVE_INTEGER, N, dims0, error)                    ! <-- Write array
    call h5dclose_f(dset_id, error)                                                  ! <-- Close data set
    call h5sclose_f(dspace_id, error)                                                ! <-- Close space
+
    
    !
    !    Saving a 1D real array
    !
-   call h5screate_simple_f(1, dims1, dspace_id, error)                        ! <-- Create data set space
-   call h5dcreate_f(file_id, 'x', H5T_NATIVE_REAL, dspace_id, dset_id, error) ! <-- Create data set
-   call h5dwrite_f(dset_id, H5T_NATIVE_REAL, x, dims1, error)                 ! <-- Write array
-   call h5dclose_f(dset_id, error)                                            ! <-- Close data set
+   call h5screate_simple_f(1, dims1, dspace_id, error)                          ! <-- Create data set space
+   call h5dcreate_f(file_id, 'x', H5T_NATIVE_DOUBLE, dspace_id, dset_id, error) ! <-- Create data set
+   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, x, dims1, error)                 ! <-- Write array
+   call h5dclose_f(dset_id, error)                                              ! <-- Close data set
    call h5sclose_f(dspace_id, error)
 
    !
    !    Saving a 2D real array
    !
    call h5screate_simple_f(2, dims2, dspace_id, error)                        ! <-- Create data set space
-   call h5dcreate_f(file_id, 'y', H5T_NATIVE_REAL, dspace_id, dset_id, error) ! <-- Create data set
-   call h5dwrite_f(dset_id, H5T_NATIVE_REAL, y, dims2, error)                 ! <-- Write array
+   call h5dcreate_f(file_id, 'y', H5T_NATIVE_DOUBLE, dspace_id, dset_id, error) ! <-- Create data set
+   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, y, dims2, error)                 ! <-- Write array
    call h5dclose_f(dset_id, error)                                            ! <-- Close data set
    call h5sclose_f(dspace_id, error)
 
