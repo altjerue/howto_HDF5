@@ -43,29 +43,35 @@ program firsth5
    !
    !    Saving a 1D real array
    !
-   call h5screate_simple_f(1, dims1, dspace_id, error)                          ! <-- Create data set space
+   call h5screate_simple_f(1, dims1, dspace_id, error) ! <-- Create data set space
    call h5dcreate_f(file_id, 'x', H5T_NATIVE_DOUBLE, dspace_id, dset_id, error) ! <-- Create data set
-   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, x, dims1, error)                 ! <-- Write array
-   call h5dclose_f(dset_id, error)                                              ! <-- Close data set
+   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, x, dims1, error) ! <-- Write array
+   call h5dclose_f(dset_id, error) ! <-- Close data set
    call h5sclose_f(dspace_id, error)
 
    !
-   !    Saving a 2D real array
+   !    Saving a 2D real array at t=1
    !
-   call h5screate_simple_f(2, dims2, dspace_id, error)                        ! <-- Create data set space
-   call h5dcreate_f(file_id, 'y', H5T_NATIVE_DOUBLE, dspace_id, dset_id, error) ! <-- Create data set
-   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, y, dims2, error)                 ! <-- Write array
-   call h5dclose_f(dset_id, error)                                            ! <-- Close data set
+   call h5screate_simple_f(2, dims2, dspace_id, error) ! <-- Create data set space
+   call h5dcreate_f(file_id, 'y(t = 1)', H5T_NATIVE_DOUBLE, dspace_id, dset_id, error) ! <-- Create data set
+   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, y, dims2, error) ! <-- Write array
+   call h5dclose_f(dset_id, error) ! <-- Close data set
    call h5sclose_f(dspace_id, error)
 
+   !
+   !    Saving a 2D real array at t=1
+   !
+   call h5screate_simple_f(2, dims2, dspace_id, error) ! <-- Create data set space
+   call h5dcreate_f(file_id, 'y(t = 1)', H5T_NATIVE_DOUBLE, dspace_id, dset_id, error) ! <-- Create data set
+   call h5dwrite_f(dset_id, H5T_NATIVE_DOUBLE, y, dims2, error) ! <-- Write array
+   call h5dclose_f(dset_id, error) ! <-- Close data set
+   call h5sclose_f(dspace_id, error)
+   
    !
    !    Close HDF5 file
    !
    call h5fclose_f(file_id, error) ! <--- Closing HDF5 file
    call h5close_f(error)           ! <--- Closing HDF5
 
-   !
-   ! TODO Saving 2D arrays for different times
-   ! TODO Include attributes vs wide labels
 
 end program firsth5
