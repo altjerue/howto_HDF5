@@ -22,7 +22,7 @@ $ make -j6
 $ make install
 ```
 
-The argument in the preffix flag is the full address of the directory where we want our library to be installed. This path must be in declared in the `PATH` variable. Usually, if you are admin rights, the recommended address is `/usr/local/bin`
+The argument in the preffix flag is the full address of the directory where we want our library to be installed. This path must be in declared in the environment variable `PATH` in your init file (e.g., `.bashrc`, `.profile`, `.zbashrc`, `.zprofile`, etc.). If you are admin or have root permission, the recommended address is `/usr/local/bin`
 
 
 ## Installing `h5py`
