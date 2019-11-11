@@ -18,7 +18,7 @@ Go to the directory where the source code was uncompressed and compile the libra
 
 ```
 $ ./configure --prefix=/path/to/lib/dir --enable-fortran --enable-cxx
-$ make -j6̨
+$ make -j6
 $ make install
 ```
 
